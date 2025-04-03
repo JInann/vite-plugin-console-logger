@@ -1,9 +1,12 @@
 import { readFileSync } from 'fs';
 import type { Plugin } from 'vite';
 import { WebSocket, WebSocketServer } from 'ws';
-
+import path from 'path';
 // 客户端代码，将被注入到页面中
-const clientCode = readFileSync('./client.js').toString();
+const clientCode = readFileSync(
+  path.join(import.meta.dirname, 'client.js')
+).toString();
+
 // 消息类型定义
 interface BaseMessage {
   type: string;
