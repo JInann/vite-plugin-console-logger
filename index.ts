@@ -4,7 +4,7 @@ import { WebSocket, WebSocketServer } from 'ws';
 import path from 'path';
 // 客户端代码，将被注入到页面中
 const clientCode = readFileSync(
-  path.join(import.meta.dirname, 'client.js')
+  path.join(import.meta.dirname || __dirname, 'client.mjs')
 ).toString();
 
 // 消息类型定义

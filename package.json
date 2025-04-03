@@ -1,11 +1,23 @@
 {
   "name": "vite-plugin-console-logger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "dev": "unbuild & node dist/index.cjs & node dist/index.mjs",
+    "build": "unbuild",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,7 +25,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/ws": "^8.18.1",
     "typescript": "^5.8.2",
+    "unbuild": "^3.5.0",
     "vite": "^6.2.4"
   },
   "dependencies": {
