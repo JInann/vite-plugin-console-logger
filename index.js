@@ -6,7 +6,9 @@ const clientCode = readFileSync(
   path.join(import.meta.dirname || __dirname, 'client.mjs')
 ).toString();
 
-export default function consoleLoggerPlugin(options = { onlyServer: false }) {
+export default function consoleLoggerPlugin(
+  options = { onlyServer: false, remoteUrl: '', useRemote: false }
+) {
   return {
     name: 'vite-plugin-console-logger',
     configureServer(server) {
