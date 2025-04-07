@@ -6,10 +6,15 @@ const clientCode = readFileSync(
   path.join(import.meta.dirname || __dirname, 'client.mjs')
 ).toString();
 
-export default function consoleLoggerPlugin(options) {
+export default function consoleLoggerPlugin(options = { onlyServer: false }) {
   return {
     name: 'vite-plugin-console-logger',
     configureServer(server) {
+      if (options.onlyServer) {
+        // 创建 WebSocket 服务器
+        consoleLogger(server.httpServer);
+        return;
+      }
       let url = options.remoteUrl;
       if (options.useRemote == false) {
         url += '?host=localhost:' + server.config.server.port;
@@ -23,6 +28,9 @@ export default function consoleLoggerPlugin(options) {
     },
 
     transformIndexHtml() {
+      if (options.onlyServer) {
+        return;
+      }
       let code = clientCode;
       if (options.useRemote) {
         let url = new URL(options.remoteUrl || '');
